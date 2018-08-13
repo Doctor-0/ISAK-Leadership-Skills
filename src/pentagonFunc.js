@@ -41,8 +41,6 @@ function generatePentagon (x, y, id, numLevels=0, scaleX=1, scaleY=1, hashPoints
   //Calculate center
   let center = [(x*scaleX)/2, (y*scaleY)/2];
 
-  console.log(center, points);
-
   //4. Generate the pentagon
   $svg.find('.pentagon').attr('points', ptsToString(points))
 
@@ -136,6 +134,7 @@ function generatePentagon (x, y, id, numLevels=0, scaleX=1, scaleY=1, hashPoints
       updateShardsCascade(hashPoints[i], HIGH_LIGHT_COLOR);
     }
   }
+  console.log('center: ', center);
   console.log('ms: ', (new Date()) - startDate,' | ', hashPoints);
   return points;
 }
