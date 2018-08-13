@@ -15,8 +15,9 @@ This is a diagram to help students show how far they've progressed in five diffe
 * ~~Include Arial~~
 * Fix the color gradient of shards
 * ~~Add labels for each shard~~
-* Title editable
+* ~~Title editable~~
 * ~~Fix UWC logo~~
+* OPTIMIZE CODE!
 
 ### Coaching Questions
 * ~~Make new coaching questions, questions are editable~~

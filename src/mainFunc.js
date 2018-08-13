@@ -1,12 +1,16 @@
 $(document).ready(function() {
   const id = '#svg-pentagon',
-        numLevels = 8;
+        numLevels = 8,
+        DEFAULT_TITLE = 'Click me to edit'
   //Sets the initial hash
   if(window.location.hash == ""){
-    window.location.hash = '0,0&0,0&0,0&0,0&0,0';
+    window.location.hash = '0,0&0,0&0,0&0,0&0,0&' + DEFAULT_TITLE;
   }
 
-  let points = generatePentagon(425, 500, id, numLevels, 1.05, 0.85, getHash(window.location.hash));
+  let currHash = getHash();
+      currTitle = currHash.pop();
+
+  let points = generatePentagon(425, 500, id, numLevels, 1.05, 0.85, currHash);
 
   //3. Set width and height of frame point on points
   $("#J-svg-pentagon").attr({
@@ -58,4 +62,17 @@ $(document).ready(function() {
 
   // Disciplined
   $(".disciplined").click(onClick);
+
+  // Adds editing functionality to the title
+  if($('#title-text').text() !== currTitle ){
+    $('#title-text').text(currTitle);
+  }
+
+  $('#title-text').on('blur', function() {
+    let text = $(this)[0].innerText;
+    setTitle(text);
+  });
+  // Prevents new line from being usable when editing
+  $('#title-text').keypress(function(e){return e.key != 'Enter'; });
+
 })

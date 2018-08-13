@@ -13,39 +13,24 @@
  *                          otherwise it returns an array of points to highlight]
  */
 function getHash() {
-  let hash = window.location.hash;
-  hash = hash.slice(1); //Removes the '#'
-  return hash.split('&').map((points) => points.split(',').map((point) => parseInt(point))); //Converts the hash into int arrays
+  let hash = window.location.hash.slice(1),
+      feats = hash.split('&'),
+      curTitle = feats.pop();
+  feats = feats.map((points) => points.split(',').map((point) => parseInt(point))); //Converts the hash into int arrays
+  feats.push(curTitle.replace(/%20/g, ' '));
+  return feats
 }
 
-function setHash(curCoords) {
-  let hash = getHash();
+function setHash(curCoords, newTitle) {
+  let hash = getHash(),
+      title = hash.pop();
   hash[curCoords[0]] = curCoords;
-  window.location.hash = ptsToString(hash, '&');
+  window.location.hash = ptsToString(hash, '&') + '&' + (newTitle?newTitle:title);
 }
 
-//** Implementation of sessionStorage **//
-// function getJSON(){
-//   let tempJSON = window.sessionStorage.getItem('json');
-//   return JSON.parse(tempJSON);
-// }
-//
-// function setJSON(coords){
-//   let tempJSON = getJSON();
-//
-//   if(tempJSON === null){
-//     tempJSON = {
-//       0:[0,0],
-//       1:[1,0],
-//       2:[2,0],
-//       3:[3,0],
-//       4:[4,0]
-//     };
-//   }
-//   if(coords){
-//     tempJSON[coords[0]] = coords[1];
-//   }
-//
-//   setHash(tempJSON);
-//   window.sessionStorage.setItem('json', JSON.stringify(tempJSON));
-// }
+function setTitle(text) {
+  let hash = getHash();
+      hash.pop();
+  let output = ptsToString(hash, '&');
+  window.location.hash = output + '&' + text;
+}
