@@ -15,15 +15,14 @@ const STROKE_COLOR = '#717073';
  * @param  {[[int, int]]} hashPoints [A set of points that are already highlighted]
  */
 function generatePentagon (x, y, id, numLevels=0, scaleX=1, scaleY=1, hashPoints) {
-  let startDate = new Date(); //DELETE
+  let startDate = new Date(); // For testing
 
   let $svg = $(id);
 
-  //Calculates the points of the pentagon with
+  // 1. Calculates the points of the pentagon with
+  // Points follow clockwise around the pentagon,
+  // starting from the top most point
   function genPentagonPoints(ptX=x, ptY=y, offSetX=0, offSetY=0){
-    // 2. Points follow clockwise around the pentagon,
-    // starting from the top most point
-
     let points = [[ptX/2, 0+offSetY], //Top most point
                   [ptX-offSetX, (ptY+offSetY/2)/2.5],
                   [((3*ptX)/4)-(offSetX/2), ptY-offSetY],
@@ -41,10 +40,10 @@ function generatePentagon (x, y, id, numLevels=0, scaleX=1, scaleY=1, hashPoints
   //Calculate center
   let center = [(x*scaleX)/2, (y*scaleY)/2];
 
-  //4. Generate the pentagon
+  //2. Generate the outer pentagon
   $svg.find('.pentagon').attr('points', ptsToString(points))
 
-  // 5. Generate the individual shards shards pointsd on the {numShards}
+  // 3. Generate the individual shards shards pointsd on the {numShards}
   // Each shard uses the previous two points to calculate its' own
   // points.
   let shards = [];
@@ -123,10 +122,12 @@ function generatePentagon (x, y, id, numLevels=0, scaleX=1, scaleY=1, hashPoints
     setHash(shard_id);
   }
 
+  // 4. Appends the indvidual shards and adds the above functionality to each one
   $svg.append(shards);
   $('.shard').hover(onEnter, onLeave); // Adds hover effect
   $('.shard').click(onClick); // Locks in the shard colors
   $('.shard').dblclick(onDblClick); // Resets the shard
+
   // Changes the background color of the background shards
   // based on the hashPoints array
   for(let i=0;i<hashPoints.length;i++){
@@ -134,22 +135,7 @@ function generatePentagon (x, y, id, numLevels=0, scaleX=1, scaleY=1, hashPoints
       updateShardsCascade(hashPoints[i], HIGH_LIGHT_COLOR);
     }
   }
-  console.log('center: ', center);
+
   console.log('ms: ', (new Date()) - startDate,' | ', hashPoints);
   return points;
-}
-
-function generateText(points, id) {
-  const textPoints = [];
-
-  for(let i=0;i<points.length;i++){
-    let a = i,                       //First point
-        b = (i+1) % (points.length), //Second Point
-        pointSet = [points[a],points[b]],
-        mid = midPoint(pointSet);
-
-    textPoints.push(mid);
-  }
-
-  return textPoints;
 }

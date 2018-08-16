@@ -1,6 +1,9 @@
 # Pentagon Diagram for ISAK
 This is a diagram to help students show how far they've progressed in five different areas: awareness, creativity, self-discipline, action-taking, and connecting.
 
+For those developing, keep in mind that the logic for the `savingFunc.js` file is different from the other diagrams. This one only manipulates a single array and the
+title, whereas the others use a JSON object to store the state of the page.
+
 ## How to run:
 *Git needs to be [installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)*
 1. Clone the [repository](https://help.github.com/articles/cloning-a-repository/)
@@ -13,7 +16,7 @@ This is a diagram to help students show how far they've progressed in five diffe
 ## TODO
 * ~~Make the pentagon highlight all points below it~~
 * ~~Include Arial~~
-* Fix the color gradient of shards
+* ~~Fix the color gradient of shards~~
 * ~~Add labels for each shard~~
 * ~~Title editable~~
 * ~~Fix UWC logo~~
